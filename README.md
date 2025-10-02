@@ -1,59 +1,78 @@
-# Practica2Envios
+# Practica No. 2 - Aplicación de Envíos
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 20.3.1.
+## Universidad Mesoamericana - Ingeniería en Sistemas
 
-## Development server
+### Programación Web - AngularJS
 
-To start a local development server, run:
+### Objetivo General
 
-```bash
-ng serve
-```
+Complementar los conocimientos teóricos sobre web frameworks por medio de una interacción con AngularJS, permitiendo crear nuevos conocimientos a través de la práctica.
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+### Descripción
 
-## Code scaffolding
+Esta aplicación web permite registrar paquetes de envío, actualizar su estado y dar seguimiento a cada paquete mostrando el historial de actualizaciones.
 
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
+### Funcionalidades
 
-```bash
-ng generate component component-name
-```
+#### Creación de orden
 
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
+* Registrar información del remitente y destinatario.
+* Validación de campos:
 
-```bash
-ng generate --help
-```
+  * Nombre completo (solo letras y espacios).
+  * Dirección obligatoria.
+  * Correo con dominio Gmail u Outlook.
+  * Descripción entre 40 y 120 caracteres.
+* Genera un ID único y un número de paquete.
+* Estado inicial: "Creado".
 
-## Building
+#### Actualización de orden
 
-To build the project run:
+* Buscar por número de paquete.
+* Actualizar estado siguiendo la secuencia: Creado → En proceso → Recogido de bodega → En camino → Entregado.
+* Agregar comentario (20-40 caracteres) y responsable (solo letras y espacios).
+* Confirmar cambios mediante modal.
 
-```bash
-ng build
-```
+#### Seguimiento de paquete
 
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
+* Visualización de estado actual y historial.
+* Indicadores de progreso para cada estado.
+* Animación del paquete mostrando su avance hasta la entrega.
 
-## Running unit tests
+### Tecnologías Utilizadas
 
-To execute unit tests with the [Karma](https://karma-runner.github.io) test runner, use the following command:
+* Angular 15+ (Standalone Components)
+* TypeScript
+* TailwindCSS (opcional para estilos)
 
-```bash
-ng test
-```
+### Cómo usar la aplicación
 
-## Running end-to-end tests
+1. Clonar el repositorio:
 
-For end-to-end (e2e) testing, run:
+   ```bash
+   git clone https://github.com/Defiilol11/practica2_envios.git
+   ```
+2. Instalar dependencias:
 
-```bash
-ng e2e
-```
+   ```bash
+   cd practica2-envios
+   npm install
+   ```
+3. Ejecutar aplicación:
 
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
+   ```bash
+   ng serve -o
+   ```
+4. Abrir en el navegador: `http://localhost:4200/`
 
-## Additional Resources
+### Consideraciones
 
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+* La aplicación no utiliza almacenamiento persistente externo; todo se guarda en memoria o localStorage.
+* Se informa al usuario mediante modales después de cada acción.
+* Diseño responsive con al menos dos tamaños de visualización.
+
+### Entrega
+
+* Repositorio en GitHub: [https://github.com/Defiilol11/practica2_envios](https://github.com/Defiilol11/practica2_envios)
+* Documentación en el README.
+* Código fuente excluyendo `node_modules`.
