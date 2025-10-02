@@ -1,0 +1,66 @@
+<div *ngIf="orden" class="max-w-lg mx-auto mt-8 p-6 bg-white shadow rounded">
+  <h2 class="text-xl font-bold mb-4 text-center">Seguimiento de Paquete</h2>
+  <p><strong>Nombre:</strong> {{orden.nombre}}</p>
+  <p><strong>Dirección:</strong> {{orden.direccion}}</p>
+  <p><strong>Correo:</strong> {{orden.correo}}</p>
+  <p><strong>Estado actual:</strong> {{orden.estado}}</p>
+
+  <!-- Modal animación de progreso -->
+  <div *ngIf="mostrandoModal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+    <div class="bg-white p-6 rounded shadow max-w-md w-full text-center animate-fadeIn">
+      <h3 class="font-semibold mb-4">Progreso del paquete</h3>
+
+      <div class="flex items-center justify-between mb-4 relative">
+        <div class="absolute top-2 left-0 right-0 h-2 bg-gray-300 rounded">
+          <div class="h-2 bg-green-500 rounded transition-all duration-500" [style.width.%]="(progresoActual/(pasos.length-1))*100"></div>
+        </div>
+
+        <div *ngFor="let e of pasos; let i = index" class="text-center w-1/5 relative z-10">
+          <div class="mx-auto mb-1 text-2xl transition-colors duration-500"
+               [class.text-green-500]="i <= progresoActual"
+               [class.text-gray-400]="i > progresoActual">
+            <span *ngIf="e==='Creado'">📦</span>
+            <span *ngIf="e==='En proceso'">⚙️</span>
+            <span *ngIf="e==='Recogido de bodega'">🏭</span>
+            <span *ngIf="e==='En camino'">🚚</span>
+            <span *ngIf="e==='Entregado'">✅</span>
+          </div>
+          <span class="text-xs block mt-1">{{e}}</span>
+        </div>
+      </div>
+
+      <p class="text-sm mt-2 text-gray-700">El paquete se está moviendo a través del proceso...</p>
+    </div>
+  </div>
+
+  <!-- Historial completo -->
+  <div *ngIf="!mostrandoModal" class="mt-6">
+    <h3 class="font-semibold mb-2 text-center">Historial de la orden</h3>
+
+    <div class="flex justify-between items-center mb-2">
+      <div *ngFor="let e of pasos" class="text-center w-1/5 relative">
+        <div class="mx-auto mb-1 text-2xl transition-colors duration-500"
+             [class.text-green-500]="esEstadoCompleto(e)"
+             [class.text-gray-400]="!esEstadoCompleto(e)">
+          <span *ngIf="e==='Creado'">📦</span>
+          <span *ngIf="e==='En proceso'">⚙️</span>
+          <span *ngIf="e==='Recogido de bodega'">🏭</span>
+          <span *ngIf="e==='En camino'">🚚</span>
+          <span *ngIf="e==='Entregado'">✅</span>
+        </div>
+        <div
+          class="h-4 w-full rounded mb-1 transition-colors duration-500"
+          [class.bg-green-500]="esEstadoCompleto(e)"
+          [class.bg-gray-300]="!esEstadoCompleto(e)">
+        </div>
+        <span class="text-xs">{{e}}</span>
+      </div>
+    </div>
+
+    <ul class="mt-4 border-t pt-2">
+      <li *ngFor="let h of historialOrdenado" class="mb-1 border-b pb-1">
+        <strong>{{h.fecha | date:'short'}}</strong> - {{h.estado}} - {{h.comentario}} - {{h.responsable}}
+      </li>
+    </ul>
+  </div>
+</div>

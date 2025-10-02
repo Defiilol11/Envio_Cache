@@ -1,0 +1,19 @@
+<!-- crear.html -->
+<div class="max-w-md mx-auto mt-10 p-6 border rounded shadow">
+  <h2 class="text-xl font-bold mb-4">Crear Orden</h2>
+  <input type="text" [(ngModel)]="nombre" placeholder="Nombre completo" class="w-full mb-2 p-2 border rounded"/>
+  <input type="text" [(ngModel)]="direccion" placeholder="Dirección" class="w-full mb-2 p-2 border rounded"/>
+  <input type="email" [(ngModel)]="correo" placeholder="Correo" class="w-full mb-2 p-2 border rounded"/>
+  <textarea [(ngModel)]="descripcion" placeholder="Descripción" class="w-full mb-2 p-2 border rounded"></textarea>
+
+  <button (click)="confirmar()" class="bg-blue-500 text-white px-4 py-2 rounded">Crear Orden</button>
+</div>
+
+<!-- Modal -->
+<div *ngIf="modalOpen" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center">
+  <div class="bg-white p-6 rounded shadow max-w-sm text-center">
+    <p class="mb-4">¿Confirmas que la información ingresada es correcta?</p>
+    <button (click)="crearOrden()" class="bg-green-500 text-white px-4 py-2 rounded mr-2">Sí</button>
+    <button (click)="modalOpen=false" class="bg-red-500 text-white px-4 py-2 rounded">No</button>
+  </div>
+</div>

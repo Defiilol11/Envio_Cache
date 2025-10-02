@@ -1,0 +1,49 @@
+<div *ngIf="orden" class="max-w-lg mx-auto mt-8 p-6 bg-white shadow rounded">
+  <h2 class="text-xl font-bold mb-4">Actualizar Orden</h2>
+
+  <p><strong>Nombre:</strong> {{orden?.nombre}}</p>
+  <p><strong>Dirección:</strong> {{orden?.direccion}}</p>
+  <p><strong>Correo:</strong> {{orden?.correo}}</p>
+  <p><strong>Descripción:</strong> {{orden?.descripcion}}</p>
+  <p><strong>Estado actual:</strong> {{orden?.estado}}</p>
+
+  <div class="mt-4 flex justify-between">
+    <button (click)="abrirModalEditar()" class="bg-blue-500 text-white px-4 py-2 rounded">Editar</button>
+    <button (click)="abrirModalConfirmar()" class="bg-green-500 text-white px-4 py-2 rounded">Todo bien</button>
+  </div>
+</div>
+
+<!-- Modal Confirmación -->
+<div *ngIf="modalConfirmOpen" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center">
+  <div class="bg-white p-6 rounded shadow max-w-sm w-full">
+    <h3 class="text-lg font-semibold mb-4">Confirmar Información</h3>
+    <p>¿Confirmas que toda la información es correcta?</p>
+    <div class="mt-4 flex justify-end">
+      <button (click)="modalConfirmOpen=false" class="mr-2 px-4 py-2 bg-gray-300 rounded">Cancelar</button>
+      <button (click)="confirmar()" class="px-4 py-2 bg-green-500 text-white rounded">Sí, confirmar</button>
+    </div>
+  </div>
+</div>
+
+<!-- Modal Edición -->
+<div *ngIf="modalEditOpen" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center">
+  <div class="bg-white p-6 rounded shadow max-w-sm w-full">
+    <h3 class="text-lg font-semibold mb-4">Editar Orden</h3>
+
+    <label class="block mb-2">Estado:</label>
+    <select [(ngModel)]="estado" class="w-full mb-2 p-2 border rounded">
+      <option *ngFor="let e of estados" [value]="e">{{e}}</option>
+    </select>
+
+    <label class="block mb-2">Comentario:</label>
+    <input type="text" [(ngModel)]="comentario" class="w-full mb-2 p-2 border rounded" placeholder="Comentario">
+
+    <label class="block mb-2">Responsable:</label>
+    <input type="text" [(ngModel)]="responsable" class="w-full mb-2 p-2 border rounded" placeholder="Responsable">
+
+    <div class="mt-4 flex justify-end">
+      <button (click)="modalEditOpen=false" class="mr-2 px-4 py-2 bg-gray-300 rounded">Cancelar</button>
+      <button (click)="editar()" class="px-4 py-2 bg-blue-500 text-white rounded">Guardar cambios</button>
+    </div>
+  </div>
+</div>
