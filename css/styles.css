@@ -1,0 +1,41 @@
+/* Estilos básicos y timeline, con enfoque responsive simple */
+
+.timeline {
+  position: relative;
+  margin-left: 1rem;
+  padding-left: 1rem;
+  border-left: 3px solid #0d6efd22;
+}
+.timeline-item {
+  margin-bottom: 1rem;
+  position: relative;
+}
+.timeline-item::before {
+  content: '';
+  position: absolute;
+  left: -1.22rem;
+  top: 4px;
+  width: 10px;
+  height: 10px;
+  background: #0d6efd;
+  border-radius: 50%;
+}
+.timeline-date {
+  font-size: 0.85rem;
+  color: #6c757d;
+}
+.timeline-content {
+  background: #fff;
+  border: 1px solid #e9ecef;
+  border-radius: 0.25rem;
+  padding: 0.75rem;
+}
+
+/* Ajustes para dos tamaños (móvil y >= md) */
+@media (min-width: 768px) {
+  .card { border-radius: 0.5rem; }
+}
+
+/* Toasts: el contenedor ya está posicionado por Bootstrap. Solo asegurar transición. */
+.toast { opacity: 0; transition: opacity .25s ease; display: none; }
+.toast.show { display: block; opacity: 1; }

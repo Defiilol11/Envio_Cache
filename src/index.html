@@ -1,13 +1,67 @@
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>Paqueteria</title>
-  <base href="/">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="icon" type="image/x-icon" href="favicon.ico">
-</head>
-<body>
-  <app-root></app-root>
-</body>
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8" />
+    <title>Paquetería</title>
+    <base href="/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <!-- Fuente (ajústala a la de tu uni si la tienes) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- Configuración del tema Tailwind (debe ir ANTES del script del CDN) -->
+    <script>
+      tailwind = {
+        config: {
+          theme: {
+            extend: {
+              colors: {
+                umes: {
+                  green: {
+                    900: '#0b3d2a',
+                    800: '#0e4c2e',
+                    700: '#125d38',
+                    600: '#166e45',
+                  },
+                  beige: {
+                    50: '#f8f4ea',
+                    100: '#efe6d9',
+                    200: '#e3d6bf',
+                  },
+                  gold: { 500: '#d1b06b' },
+                  ink: '#0f221c',
+                },
+              },
+              fontFamily: {
+                sans: [
+                  'Poppins',
+                  'system-ui',
+                  'Segoe UI',
+                  'Roboto',
+                  'Helvetica Neue',
+                  'Arial',
+                  'Noto Sans',
+                  'Liberation Sans',
+                  'sans-serif',
+                ],
+              },
+              boxShadow: {
+                card: '0 1px 2px rgba(0,0,0,0.06), 0 1px 4px rgba(0,0,0,0.06)',
+              },
+            },
+          },
+        },
+      };
+    </script>
+    <!-- Tailwind Play CDN con plugin de formularios -->
+    <script src="https://cdn.tailwindcss.com?plugins=forms"></script>
+  </head>
+  <body class="bg-umes-beige-50 text-umes-ink font-sans">
+    <app-root></app-root>
+  </body>
 </html>

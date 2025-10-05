@@ -1,0 +1,169 @@
+<!-- Header -->
+<header class="w-full bg-emerald-800 text-white">
+  <div class="mx-auto max-w-6xl px-4">
+    <div class="flex items-center justify-between py-3">
+      <div class="flex items-center gap-3">
+        <div class="h-8 w-8 rounded bg-white">
+          <img
+            src="https://umesverapaz.edu.gt/wp-content/uploads/2024/10/cropped-LOGO-2-1.png"
+            alt="Icono de caja"
+            class="h-full w-full object-contain p-1"
+          />
+        </div>
+        <div class="text-lg font-semibold tracking-wide">Paquetería</div>
+      </div>
+
+      <!-- Navegación escritorio -->
+      <nav class="hidden gap-2 md:flex">
+        <a
+          routerLink="/crear"
+          routerLinkActive="underline underline-offset-4"
+          class="px-3 py-1 rounded hover:bg-white/10"
+          >Crear orden</a
+        >
+        <a
+          routerLink="/actualizar"
+          routerLinkActive="underline underline-offset-4"
+          class="px-3 py-1 rounded hover:bg-white/10"
+          >Actualizar orden</a
+        >
+        <a
+          routerLink="/seguimiento"
+          routerLinkActive="underline underline-offset-4"
+          class="px-3 py-1 rounded hover:bg-white/10"
+          >Seguimiento</a
+        >
+      </nav>
+
+      <!-- Botón hamburguesa (móvil) -->
+      <button
+        type="button"
+        class="md:hidden inline-flex items-center justify-center rounded-md p-2 hover:bg-white/10 focus:outline-none focus:ring-2 focus:ring-white/50"
+        [attr.aria-expanded]="mobileOpen"
+        aria-label="Abrir menú"
+        (click)="toggleMobileNav()"
+      >
+        <!-- Icono hamburguesa -->
+        <svg
+          *ngIf="!mobileOpen"
+          xmlns="http://www.w3.org/2000/svg"
+          class="h-6 w-6"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke="currentColor"
+          stroke-width="2"
+          aria-hidden="true"
+        >
+          <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16" />
+        </svg>
+        <!-- Icono cerrar -->
+        <svg
+          *ngIf="mobileOpen"
+          xmlns="http://www.w3.org/2000/svg"
+          class="h-6 w-6"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke="currentColor"
+          stroke-width="2"
+          aria-hidden="true"
+        >
+          <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+        </svg>
+      </button>
+    </div>
+  </div>
+</header>
+
+<!-- Sub-barra -->
+<div class="w-full bg-stone-100 border-b border-stone-200">
+  <div class="mx-auto max-w-6xl px-4 py-2 text-sm text-emerald-900">
+    Bienvenido a la aplicación de paquetería
+  </div>
+</div>
+
+<!-- Overlay de menú móvil (siempre en el DOM para animar entrada/salida) -->
+<div
+  class="md:hidden fixed inset-0 z-50 transition-opacity duration-200 ease-out"
+  [class.opacity-0]="!mobileOpen"
+  [class.opacity-100]="mobileOpen"
+  [class.pointer-events-none]="!mobileOpen"
+  (click)="closeMobileNav()"
+  aria-hidden="{{ !mobileOpen }}"
+>
+  <!-- Fondo oscuro -->
+  <div class="absolute inset-0 bg-black/50"></div>
+
+  <!-- Panel del menú (derecha) -->
+  <nav
+    class="absolute top-0 right-0 h-full w-72 max-w-[80%] bg-emerald-800 text-white shadow-xl transform transition-transform duration-200 ease-out"
+    [class.translate-x-full]="!mobileOpen"
+    [class.translate-x-0]="mobileOpen"
+    (click)="$event.stopPropagation()"
+    role="dialog"
+    aria-label="Menú de navegación"
+  >
+    <div class="flex items-center justify-between p-4 border-b border-emerald-700/50">
+      <span class="font-semibold">Menú</span>
+      <button
+        type="button"
+        class="p-2 rounded hover:bg-white/10"
+        aria-label="Cerrar menú"
+        (click)="closeMobileNav()"
+      >
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          class="h-5 w-5"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke="currentColor"
+          stroke-width="2"
+          aria-hidden="true"
+        >
+          <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+        </svg>
+      </button>
+    </div>
+
+    <div class="px-2 py-2 space-y-1">
+      <a
+        routerLink="/crear"
+        (click)="closeMobileNav()"
+        class="block px-3 py-2 rounded text-white hover:bg-white/10"
+        >Crear orden</a
+      >
+      <a
+        routerLink="/actualizar"
+        (click)="closeMobileNav()"
+        class="block px-3 py-2 rounded text-white hover:bg-white/10"
+        >Actualizar orden</a
+      >
+      <a
+        routerLink="/seguimiento"
+        (click)="closeMobileNav()"
+        class="block px-3 py-2 rounded text-white hover:bg-white/10"
+        >Seguimiento</a
+      >
+    </div>
+  </nav>
+</div>
+
+<main class="mx-auto max-w-6xl p-4">
+  <router-outlet></router-outlet>
+</main>
+
+<!-- Toast -->
+<div class="fixed bottom-4 right-4 z-40 space-y-2" *ngIf="toast as t">
+  <div
+    class="bg-white rounded-lg shadow border border-stone-200 px-4 py-2 border-l-4"
+    [class.border-l-emerald-700]="t.type === 'success'"
+    [class.border-l-red-600]="t.type === 'error'"
+  >
+    <div
+      class="text-sm"
+      [class.text-emerald-800]="t.type === 'success'"
+      [class.text-red-700]="t.type === 'error'"
+    >
+      {{ t.message }}
+    </div>
+  </div>
+</div>

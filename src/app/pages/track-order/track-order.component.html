@@ -1,0 +1,51 @@
+<section class="bg-white rounded-lg shadow border border-stone-200 p-5">
+  <h1 class="text-xl font-semibold text-emerald-800">Seguimiento de paquete</h1>
+
+  <form [formGroup]="form" (ngSubmit)="search()" class="mt-4 grid grid-cols-1 gap-4 md:grid-cols-3">
+    <div class="md:col-span-2">
+      <label class="block text-sm font-medium text-slate-800"
+        >Código de seguimiento (12 letras)</label
+      >
+      <input
+        class="mt-1 block w-full rounded-md border-stone-300 shadow-sm focus:border-emerald-600 focus:ring-emerald-600"
+        formControlName="trackingId"
+        placeholder="Ej. AbCdEfGhIjKl"
+      />
+      <p
+        class="mt-1 text-xs text-red-600"
+        *ngIf="form.controls['trackingId'].invalid && form.controls['trackingId'].touched"
+      >
+        Formato: 12 letras A–Z / a–z.
+      </p>
+    </div>
+    <div class="flex items-end">
+      <button
+        class="inline-flex items-center rounded-md border border-emerald-700 text-emerald-800 bg-white hover:bg-stone-100 px-4 py-2 text-sm font-medium w-full focus:outline-none focus:ring-2 focus:ring-emerald-700 focus:ring-offset-2"
+        type="submit"
+      >
+        Buscar
+      </button>
+    </div>
+  </form>
+
+  <div class="mt-6" *ngIf="order">
+    <p class="text-sm">
+      <strong>Paquete:</strong> {{ order.packageNumber }} | <strong>Estado actual:</strong>
+      {{ order.status }}
+    </p>
+
+    <!-- Timeline con utilidades Tailwind -->
+    <div class="relative border-l-2 border-emerald-700/20 pl-4 ml-2 mt-3">
+      <div class="relative mb-4" *ngFor="let h of historyAsc()">
+        <span class="absolute -left-3 top-1 w-2.5 h-2.5 bg-emerald-700 rounded-full"></span>
+        <div class="text-xs text-slate-500">{{ h.date | date : 'yyyy-MM-dd HH:mm' }}</div>
+        <div class="bg-white rounded-lg shadow border border-stone-200 p-3 mt-1">
+          <div class="text-sm"><strong>Estado:</strong> {{ h.state }}</div>
+          <div class="text-sm"><strong>Comentario:</strong> {{ h.comment }}</div>
+          <div class="text-sm"><strong>Responsable:</strong> {{ h.responsible }}</div>
+        </div>
+      </div>
+    </div>
+    <div class="text-xs text-slate-500 mt-1">Ordenado por fecha ascendente.</div>
+  </div>
+</section>

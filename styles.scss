@@ -1,0 +1,68 @@
+/* Layout de formularios en grid sencillo y responsive */
+.grid {
+  display: grid;
+  gap: 12px;
+  grid-template-columns: 1fr;
+}
+.grow { width: 100%; }
+.full { grid-column: 1 / -1; }
+.actions {
+  display: flex;
+  gap: 12px;
+  justify-content: flex-end;
+}
+.mt { margin-top: 16px; }
+.badge {
+  display: inline-block;
+  background: #e0f2ff;
+  color: #01579b;
+  padding: 2px 8px;
+  border-radius: 8px;
+}
+.muted { color: #6b7280; font-size: 0.9rem; }
+
+/* Timeline (similar al ejemplo) */
+.timeline {
+  position: relative;
+  margin-left: 1rem;
+  padding-left: 1rem;
+  border-left: 3px solid rgba(13,110,253,0.2);
+}
+.timeline-item {
+  margin-bottom: 1rem;
+  position: relative;
+}
+.timeline-item::before {
+  content: '';
+  position: absolute;
+  left: -1.22rem;
+  top: 4px;
+  width: 10px;
+  height: 10px;
+  background: #0d6efd;
+  border-radius: 50%;
+}
+.timeline-date {
+  font-size: 0.85rem;
+  color: #6c757d;
+}
+.timeline-content {
+  background: #fff;
+  border: 1px solid #e9ecef;
+  border-radius: 0.25rem;
+  padding: 0.75rem;
+}
+
+/* Snackbars personalizados */
+.snack-success { --mdc-snackbar-container-color: #2e7d32; --mat-mdc-snack-bar-button-color: #fff; color: #fff; }
+.snack-error   { --mdc-snackbar-container-color: #c62828; --mat-mdc-snack-bar-button-color: #fff; color: #fff; }
+
+/* Dos tamaños principales */
+@media (min-width: 768px) {
+  .grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+  .grow, .full {
+    grid-column: 1 / -1;
+  }
+}
