@@ -1,59 +1,109 @@
-# Paqueteria
+# Práctica 2 – Angular @latest (Standalone) · Paquetería
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 20.3.4.
+Aplicación web realizada en Angular 20 (standalone) para gestionar órdenes de envío: creación, actualización de estado y seguimiento por código. Incluye validaciones, control estricto del flujo de estados, notificaciones y diseño responsive con menú hamburguesa. Sin persistencia (datos en memoria).
 
-## Development server
+## Stack del proyecto
+- Angular 20 (standalone, Router, Reactive Forms sin tipado estricto: UntypedFormBuilder)
+- TypeScript 5
+- Tailwind CSS por CDN (sin build)
+- Sin AngularJS, sin Angular Material, sin @angular/animations
 
-To start a local development server, run:
+## Requisitos
+- Node.js 18+ (o 20+)
+- npm 9+
+- Navegador moderno
 
+## Ejecutar en local
 ```bash
-ng serve
+# Instalar dependencias
+npm install
+
+# Iniciar en modo desarrollo
+npm start
+# ó
+ng serve -o
+```
+- Abrir: http://localhost:4200/crear (sin hash “#!”).
+
+## Rutas
+- /crear: formulario para registrar una orden.
+- /actualizar: búsqueda por número de paquete y cambio de estado con comentario y responsable.
+- /seguimiento: consulta por código de seguimiento (12 letras). Muestra la línea de tiempo en orden ascendente por fecha.
+
+En móviles, la navegación aparece como menú hamburguesa; en escritorio, menú horizontal.
+
+## Validaciones y reglas
+- Remitente y Responsable: solo letras y espacios (sin números ni símbolos).
+- Dirección: Calle/Avenida, Zona, Municipio y Departamento obligatorios.
+- Correo: formato válido y dominio limitado a gmail.com u outlook.com.
+- Descripción (creación): 40 a 120 caracteres.
+- Comentario (actualización): 20 a 40 caracteres.
+- Seguimiento: exactamente 12 letras (A–Z/a–z).
+
+## Flujo de estados (transiciones permitidas)
+- Creado → En preparación → En tránsito → Entregado
+- En preparación → No entregado
+- En tránsito → No entregado
+- Estados finales: Entregado y No entregado
+- Transiciones fuera de este flujo son rechazadas con mensaje al usuario.
+
+## Generación de identificadores
+- Número de paquete: incremental simple (1001, 1002, …).
+- Código de seguimiento: 12 letras aleatorias (mayúsculas/minúsculas).
+
+## Notificaciones
+Toaster ligero propio (sin dependencias). Muestra mensajes de éxito/error tras acciones clave y se oculta automáticamente.
+
+## Responsive
+- Tailwind por CDN (clases utilitarias).
+- Layout fluido con grid y espaciados.
+- Menú hamburguesa en < md; cierra al navegar y al redimensionar a ≥ md.
+
+## Estructura del proyecto (carpetas/archivos relevantes)
+```
+src/
+  app/
+    models/
+      order.model.ts               # Tipos: Order, OrderStatus, etc.
+    services/
+      order.service.ts             # Lógica en memoria: CRUD y flujo de estados
+      notification.service.ts      # Toaster simple (éxito/error)
+    pages/
+      create-order/
+        create-order.component.ts
+        create-order.component.html
+      update-order/
+        update-order.component.ts
+        update-order.component.html
+      track-order/
+        track-order.component.ts
+        track-order.component.html
+    app.component.ts               # Header + router-outlet + menú responsive + toaster
+    app.component.html
+    app.routes.ts                  # Rutas: /crear, /actualizar, /seguimiento
+    app.config.ts                  # provideRouter(routes)
+  index.html                       # Tailwind CDN + fuente
+  main.ts                          # bootstrapApplication(AppComponent, appConfig)
+  styles.scss                      # (Opcional) CSS global simple; sin @tailwind/@apply
 ```
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+## Decisiones técnicas
+- Reactive Forms “untyped”: evita errores de tipado en plantillas con acceso por índice (`controls['campo']`).
+- Tailwind CDN: no requiere configuración ni build; ideal para la práctica (no producción).
+- Sin dependencias UI adicionales: todo con HTML + Tailwind para mantener simple y claro.
 
-## Code scaffolding
+## Limitaciones
+- No hay persistencia (los datos se reinician al refrescar).
+- El número de paquete es incremental en memoria (no es global ni único fuera de la sesión).
 
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
+## Solución de problemas
+- Pantalla vacía o rutas que no cargan:
+  - Verifica navegar a /crear (sin `#!`).
+  - Asegúrate de que `src/index.html` NO incluye scripts de AngularJS (1.x).
+- Error de formularios en plantilla:
+  - Los controles se acceden como `form.controls['campo']` (no `form.controls.campo`).
+- Tailwind no aplica estilos:
+  - Recarga dura (Ctrl+F5); confirma que el script CDN está en `index.html`.
 
-```bash
-ng generate component component-name
-```
-
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
-
-```bash
-ng generate --help
-```
-
-## Building
-
-To build the project run:
-
-```bash
-ng build
-```
-
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
-
-## Running unit tests
-
-To execute unit tests with the [Karma](https://karma-runner.github.io) test runner, use the following command:
-
-```bash
-ng test
-```
-
-## Running end-to-end tests
-
-For end-to-end (e2e) testing, run:
-
-```bash
-ng e2e
-```
-
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
-
-## Additional Resources
-
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+## Licencia
+Uso académico. Libre de reutilizar y adaptar para fines educativos.
